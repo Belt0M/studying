@@ -1,6 +1,8 @@
 import asyncHandler from 'express-async-handler'
 import { prisma } from '../prisma.js'
 
+// Git Test
+
 // @desc    Create exercise
 // @route   POST /api/exercises
 // @access  Private
