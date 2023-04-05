@@ -8,6 +8,7 @@ import userRoutes from './app/user/user.routes.js'
 import { prisma } from './app/prisma.js'
 import path from "path"
 import exerciseRoutes from "./app/exercise/exercise.routes.js"
+import workoutsRoutes from "./app/workout/workout.routes.js"
 
 
 dotenv.config()
@@ -25,6 +26,7 @@ async function main() {
 	app.use('/api/auth/users', authRoutes)
 	app.use('/api/users', userRoutes)
 	app.use('/api/exercises', exerciseRoutes)
+	app.use('/api/workouts', workoutsRoutes)
 
 	app.use(notFound)
 	app.use(errorHandler)
