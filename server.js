@@ -2,6 +2,7 @@ import 'colors'
 import dotenv from 'dotenv'
 import express from 'express'
 import morgan from 'morgan'
+import cors from 'cors'
 import { errorHandler, notFound } from './app/middleware/error.middleware.js'
 import authRoutes from './app/auth/auth.routes.js'
 import userRoutes from './app/user/user.routes.js'
@@ -18,6 +19,7 @@ const app = express()
 async function main() {
 	if (process.env.NODE_ENV === 'development') app.use(morgan('dev'))
 
+	app.use(cors())
 	app.use(express.json())
 
 	const __dirname = path.resolve()
