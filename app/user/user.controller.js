@@ -21,12 +21,12 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 		}
 	})
 
-    const workouts = await prisma.workoutLog.count({
-        where: {
-            userId: req.user.id,
-            isCompleted: true
-        }
-    })
+	const workouts = await prisma.workoutLog.count({
+		where: {
+			userId: req.user.id,
+			isCompleted: true
+		}
+	})
 
 	const kgs = await prisma.exerciseTime.aggregate({
 		where: {
@@ -40,18 +40,21 @@ export const getUserProfile = asyncHandler(async (req, res) => {
 		}
 	})
 
-	res.json([ ...user,
-		{
-			label: 'Minutes',
-			value: Math.ceil(countExerciseTimesCompleted * 2.3) || 0
-		},
-        {
-            label: "Workouts",
-            value: workouts
-        },
-        {
-            label: "Kgs",
-            value: kgs._sum.weight || 0
-        }
-	])
+	res.json({
+		...user,
+		statistic: [
+			{
+				label: 'Minutes',
+				value: Math.ceil(countExerciseTimesCompleted * 2.3) || 0
+			},
+			{
+				label: 'Workouts',
+				value: workouts
+			},
+			{
+				label: 'Kgs',
+				value: kgs._sum.weight || 0
+			}
+		]
+	})
 })

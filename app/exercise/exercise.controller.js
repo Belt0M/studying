@@ -6,7 +6,7 @@ import { prisma } from '../prisma.js'
 // @access  Private
 
 export const createExercise = asyncHandler(async (req, res) => {
-	const { name, muscle, sets, times, iconPath } = req.body
+	const { name, muscle, times, iconPath } = req.body
 
 	const isExist = await prisma.exercise.findUnique({
 		where: {
@@ -23,7 +23,6 @@ export const createExercise = asyncHandler(async (req, res) => {
 		data: {
 			name,
 			muscle,
-			sets,
 			times,
 			iconPath
 		}
@@ -51,7 +50,7 @@ export const getExercises = asyncHandler(async (req, res) => {
 // @access  Private
 
 export const updateExercise = asyncHandler(async (req, res) => {
-	const { name, muscle, sets, times, iconPath } = req.body
+	const { name, muscle, times, iconPath } = req.body
 
 	try {
 		const exercise = await prisma.exercise.update({
@@ -61,7 +60,6 @@ export const updateExercise = asyncHandler(async (req, res) => {
 			data: {
 				name,
 				muscle,
-				sets,
 				times,
 				iconPath
 			}
@@ -70,7 +68,7 @@ export const updateExercise = asyncHandler(async (req, res) => {
 		res.json(exercise)
 	} catch (error) {
 		res.status(404)
-		throw new Error("Exercise not found")
+		throw new Error('Exercise not found')
 	}
 })
 
@@ -86,9 +84,9 @@ export const deleteExercise = asyncHandler(async (req, res) => {
 			}
 		})
 
-		res.json({ message: "Exercise deleted" })
+		res.json({ message: 'Exercise deleted' })
 	} catch (error) {
 		res.status(404)
-		throw new Error("Exercise not found")
+		throw new Error('Exercise not found')
 	}
 })
